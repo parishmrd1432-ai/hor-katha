@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hoṛ Or हो़ड़ Katha - BOSC Tech & Edu</title>
 
-    <link rel="manifest" href="manifest.json">
+    <!-- PWA Install Meta Tags -->
     <meta name="theme-color" content="#0969da">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Hoṛ Or Katha">
+
+    <!-- External Manifest Link for PWA Installation -->
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2881/2881031.png">
 
     <style>
@@ -51,8 +54,13 @@
             overflow-y: auto;
         }
 
-        .app-card::-webkit-scrollbar { width: 4px; }
-        .app-card::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 4px; }
+        .app-card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .app-card::-webkit-scrollbar-thumb {
+            background: #d0d7de;
+            border-radius: 4px;
+        }
 
         .header-bar {
             display: flex;
@@ -64,7 +72,11 @@
             gap: 6px;
         }
 
-        .brand-title-group { display: flex; align-items: flex-start; flex-direction: column; }
+        .brand-title-group {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
         .app-main-title {
             font-size: 1.05rem;
             font-weight: 800;
@@ -74,9 +86,18 @@
             align-items: center;
             gap: 6px;
         }
-        .developer-credit { font-size: 0.68rem; color: #57606a; font-weight: 600; }
+        .developer-credit {
+            font-size: 0.68rem;
+            color: #57606a;
+            font-weight: 600;
+        }
 
-        .status-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .status-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
         .btn-pwa-install {
             display: none;
@@ -91,7 +112,10 @@
             transition: all 0.2s ease;
             box-shadow: 0 2px 5px rgba(45, 164, 78, 0.3);
         }
-        .btn-pwa-install:hover { background: #2c974b; transform: translateY(-1px); }
+        .btn-pwa-install:hover {
+            background: #2c974b;
+            transform: translateY(-1px);
+        }
 
         .lang-switcher-group {
             display: flex;
@@ -122,11 +146,24 @@
             color: #ffffff;
             box-shadow: 0 2px 5px rgba(9, 105, 218, 0.3);
         }
-        .tab-pill:hover:not(.active) { color: #1f2328; background: #eaeedf; }
+        .tab-pill:hover:not(.active) {
+            color: #1f2328;
+            background: #eaeedf;
+        }
 
-        .svg-icon { width: 13px; height: 15px; fill: currentColor; display: inline-block; vertical-align: middle; }
+        .svg-icon {
+            width: 13px;
+            height: 15px;
+            fill: currentColor;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-        .editor-wrapper { display: flex; flex-direction: column; gap: 3px; }
+        .editor-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
         textarea {
             width: 100%;
             height: 75px;
@@ -141,7 +178,10 @@
             line-height: 1.3;
             resize: none;
         }
-        textarea:focus { border-color: #0969da; box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2); }
+        textarea:focus {
+            border-color: #0969da;
+            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
+        }
 
         .action-bar {
             display: flex;
@@ -152,8 +192,15 @@
             border-radius: 5px;
             border: 1px solid #d0d7de;
         }
-        .counter { font-size: 0.72rem; color: #656d76; font-weight: 600; }
-        .action-btns { display: flex; gap: 5px; }
+        .counter {
+            font-size: 0.72rem;
+            color: #656d76;
+            font-weight: 600;
+        }
+        .action-btns {
+            display: flex;
+            gap: 5px;
+        }
 
         .btn-action {
             background: #ffffff;
@@ -168,9 +215,19 @@
             align-items: center;
             gap: 4px;
         }
-        .btn-action:hover { background: #f3f4f6; }
-        .btn-copy { background: #0969da; color: white; border-color: #0969da; }
-        .btn-clear { background: #cf222e; color: white; border-color: #cf222e; }
+        .btn-action:hover {
+            background: #f3f4f6;
+        }
+        .btn-copy {
+            background: #0969da;
+            color: white;
+            border-color: #0969da;
+        }
+        .btn-clear {
+            background: #cf222e;
+            color: white;
+            border-color: #cf222e;
+        }
 
         .keyboard-deck {
             background: linear-gradient(180deg, #f6f8fa 0%, #edf0f2 100%);
@@ -238,7 +295,8 @@
             }
         }
 
-        .key:active, .key-active {
+        .key:active,
+        .key-active {
             transform: scale(1.08) translateY(1px) !important;
             border-bottom-width: 1px;
             background: #0969da !important;
@@ -264,12 +322,39 @@
             border: 1px solid #0969da;
         }
 
-        .key-fkey { background: linear-gradient(180deg, #f6f8fa 0%, #e9ecef 100%); font-size: 0.68rem; color: #656d76; border-color: #d0d7de; height: 24px; }
-        .key-func { background: linear-gradient(180deg, #eaeedf 0%, #d8dee4 100%); border-color: #c0c7d0; border-bottom-color: #9fa6b0; color: #24292f; font-size: 0.7rem; font-weight: 700; }
-        .key-side { flex: 1.3; min-width: 32px; background: linear-gradient(180deg, #f0f7ff 0%, #ddf4ff 100%); border-color: #54a3ff; color: #0969da; }
-        .key-space { flex: 5; font-size: 0.72rem; letter-spacing: 1px; }
+        .key-fkey {
+            background: linear-gradient(180deg, #f6f8fa 0%, #e9ecef 100%);
+            font-size: 0.68rem;
+            color: #656d76;
+            border-color: #d0d7de;
+            height: 24px;
+        }
+        .key-func {
+            background: linear-gradient(180deg, #eaeedf 0%, #d8dee4 100%);
+            border-color: #c0c7d0;
+            border-bottom-color: #9fa6b0;
+            color: #24292f;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .key-side {
+            flex: 1.3;
+            min-width: 32px;
+            background: linear-gradient(180deg, #f0f7ff 0%, #ddf4ff 100%);
+            border-color: #54a3ff;
+            color: #0969da;
+        }
+        .key-space {
+            flex: 5;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+        }
 
-        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
 
         .panel {
             background: #f6f8fa;
@@ -280,7 +365,14 @@
             flex-wrap: wrap;
             gap: 3px;
         }
-        .panel-title { width: 100%; font-size: 0.62rem; color: #656d76; font-weight: 700; text-transform: uppercase; margin-bottom: 1px; }
+        .panel-title {
+            width: 100%;
+            font-size: 0.62rem;
+            color: #656d76;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+        }
 
         .key-dia {
             background: linear-gradient(180deg, #f0f7ff 0%, #ddf4ff 100%);
@@ -291,7 +383,12 @@
             height: 28px;
         }
 
-        .mapping-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 4px; width: 100%; }
+        .mapping-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 4px;
+            width: 100%;
+        }
 
         .map-badge {
             background: #ffffff;
@@ -303,17 +400,67 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
             cursor: pointer;
             position: relative;
             z-index: 1;
         }
-        .map-badge:hover { transform: scale(1.08) translateY(-2px); background-color: #f0f7ff; border-color: #0969da; box-shadow: 0 4px 10px rgba(9, 105, 218, 0.2); z-index: 10; }
-        .map-key { color: #0969da; font-weight: bold; }
+        .map-badge:hover {
+            transform: scale(1.08) translateY(-2px);
+            background-color: #f0f7ff;
+            border-color: #0969da;
+            box-shadow: 0 4px 10px rgba(9, 105, 218, 0.2);
+            z-index: 10;
+        }
+        .map-key {
+            color: #0969da;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .app-card {
+                padding: 6px;
+                border-width: 1.5px;
+            }
+            textarea {
+                height: 60px;
+                font-size: 1.3rem;
+            }
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+            .key {
+                height: 28px;
+                font-size: 0.75rem;
+            }
+            .key-row {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            textarea {
+                font-size: 1.1rem;
+                height: 55px;
+            }
+            .tab-pill {
+                padding: 3px 6px;
+                font-size: 0.68rem;
+            }
+            .key {
+                height: 26px;
+                font-size: 0.7rem;
+            }
+            .key-row {
+                min-width: 540px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="app-card">
+        <!-- Header Bar -->
         <div class="header-bar">
             <div class="brand-title-group">
                 <div class="app-main-title">
@@ -335,8 +482,10 @@
             </div>
         </div>
 
+        <!-- Textarea Editor -->
         <div class="editor-wrapper">
-            <textarea id="editor" placeholder="Type or tap here..." oninput="updateCounter()"></textarea>
+            <textarea id="editor" placeholder="Type or tap here (Ctrl+A, C, V enabled)..." oninput="updateCounter()"></textarea>
+
             <div class="action-bar">
                 <div class="counter" id="char-counter">Chars: 0 | Words: 0</div>
                 <div class="action-btns">
@@ -346,6 +495,7 @@
             </div>
         </div>
 
+        <!-- Keyboard Deck -->
         <div class="keyboard-deck">
             <div class="keyboard-deck-title">
                 <span id="deck-mode-title">Virtual Keyboard: Roman Santali</span>
@@ -354,111 +504,123 @@
             <div id="keyboard" style="display:flex; flex-direction:column; gap:2px;"></div>
         </div>
 
+        <!-- Panels -->
         <div class="bottom-grid">
             <div class="panel">
                 <div class="panel-title">Top-Right Touch Modifiers &amp; Devanagari Special:</div>
-                <button class="key key-dia" onclick="addChar('़')">◌़</button>
-                <button class="key key-dia" onclick="addChar('’')">◌’</button>
-                <button class="key key-dia" onclick="addChar('\'')">◌'</button>
-                <button class="key key-dia" onclick="addChar('ᱽ')">ᱽ</button>
-                <button class="key key-dia" onclick="addChar('ᱷ')">ᱷ</button>
-                <button class="key key-dia" onclick="addChar('ᱸ')">ᱸ</button>
-                <button class="key key-dia" onclick="addChar('ⁿ')">◌ⁿ</button>
-                <button class="key key-dia" onclick="addChar('ʰ')">◌ʰ</button>
-                <button class="key key-dia" onclick="addChar('ʲ')">◌ʲ</button>
-                <button class="key key-dia" onclick="addChar('ʷ')">◌ʷ</button>
-                <button class="key key-dia" onclick="addChar('ˤ')">◌ˤ</button>
+                <button class="key key-dia" data-hint="Key: ]" onclick="addChar('़')">◌़</button>
+                <button class="key key-dia" data-hint="Shift + '" onclick="addChar('’')">◌’</button>
+                <button class="key key-dia" data-hint="' Key" onclick="addChar('\'')">◌'</button>
+                <button class="key key-dia" data-hint="Santali Ahad" onclick="addChar('ᱽ')">ᱽ</button>
+                <button class="key key-dia" data-hint="Santali Ah" onclick="addChar('ᱷ')">ᱷ</button>
+                <button class="key key-dia" data-hint="Santali Mu-ttdak" onclick="addChar('ᱸ')">ᱸ</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('ⁿ')">◌ⁿ</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('ʰ')">◌ʰ</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('ʲ')">◌ʲ</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('ʷ')">◌ʷ</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('ˤ')">◌ˤ</button>
             </div>
 
             <div class="panel">
                 <div class="panel-title">Combining Diacritics &amp; Accents:</div>
-                <button class="key key-dia" onclick="addChar('\u0301')">◌́</button>
-                <button class="key key-dia" onclick="addChar('\u0300')">◌̀</button>
-                <button class="key key-dia" onclick="addChar('\u0331')">◌̱</button>
-                <button class="key key-dia" onclick="addChar('\u0323')">◌̣</button>
-                <button class="key key-dia" onclick="addChar('\u0303')">◌̃</button>
-                <button class="key key-dia" onclick="addChar('\u0307')">◌̇</button>
-                <button class="key key-dia" onclick="addChar('\u0304')">◌̄</button>
+                <button class="key key-dia" data-hint="Shift + =" onclick="addChar('\u0301')">◌́</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0300')">◌̀</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0331')">◌̱</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0323')">◌̣</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0303')">◌̃</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0307')">◌̇</button>
+                <button class="key key-dia" data-hint="Click" onclick="addChar('\u0304')">◌̄</button>
             </div>
         </div>
 
         <div id="roman-quick" class="panel">
-            <div class="panel-title">Santali Special Pre-combined Keys:</div>
-            <button class="key key-dia" onclick="addChar('ñ')">ñ</button>
-            <button class="key key-dia" onclick="addChar('Ñ')">Ñ</button>
-            <button class="key key-dia" onclick="addChar('a̱')">a̱</button>
-            <button class="key key-dia" onclick="addChar('e̱')">e̱</button>
-            <button class="key key-dia" onclick="addChar('o̱')">o̱</button>
-            <button class="key key-dia" onclick="addChar('ã')">ã</button>
-            <button class="key key-dia" onclick="addChar('ẽ')">ẽ</button>
-            <button class="key key-dia" onclick="addChar('ḍ')">ḍ</button>
-            <button class="key key-dia" onclick="addChar('ṭ')">ṭ</button>
-            <button class="key key-dia" onclick="addChar('ṇ')">ṇ</button>
-            <button class="key key-dia" onclick="addChar('ṅ')">ṅ</button>
-            <button class="key key-dia" onclick="addChar('ṛ')">ṛ</button>
-            <button class="key key-dia" onclick="addChar('Ḍ')">Ḍ</button>
-            <button class="key key-dia" onclick="addChar('Ṭ')">Ṭ</button>
-            <button class="key key-dia" onclick="addChar('Ṇ')">Ṇ</button>
-            <button class="key key-dia" onclick="addChar('Ṅ')">Ṅ</button>
-            <button class="key key-dia" onclick="addChar('Ṛ')">Ṛ</button>
-            <button class="key key-dia" onclick="addChar('ā')">ā</button>
-            <button class="key key-dia" onclick="addChar('ē')">ē</button>
-            <button class="key key-dia" onclick="addChar('i̱')">i̱</button>
-            <button class="key key-dia" onclick="addChar('ĩ')">ĩ</button>
-            <button class="key key-dia" onclick="addChar('õ')">õ</button>
-            <button class="key key-dia" onclick="addChar('u̱')">u̱</button>
-            <button class="key key-dia" onclick="addChar('ũ')">ũ</button>
-            <button class="key key-dia" onclick="addChar('ṃ')">ṃ</button>
-            <button class="key key-dia" onclick="addChar('ḷ')">ḷ</button>
+            <div class="panel-title">Santali Special Pre-combined Keys (Small &amp; Capitals):</div>
+            <button class="key key-dia" data-hint="Alt + N" onclick="addChar('ñ')">ñ</button>
+            <button class="key key-dia" data-hint="Shift + N" onclick="addChar('Ñ')">Ñ</button>
+            <button class="key key-dia" data-hint="Key 1" onclick="addChar('a̱')">a̱</button>
+            <button class="key key-dia" data-hint="Key 2" onclick="addChar('e̱')">e̱</button>
+            <button class="key key-dia" data-hint="Key 3" onclick="addChar('o̱')">o̱</button>
+            <button class="key key-dia" data-hint="Key 4" onclick="addChar('ã')">ã</button>
+            <button class="key key-dia" data-hint="Key 5" onclick="addChar('ẽ')">ẽ</button>
+            <button class="key key-dia" data-hint="Key 6" onclick="addChar('ḍ')">ḍ</button>
+            <button class="key key-dia" data-hint="Key 7" onclick="addChar('ṭ')">ṭ</button>
+            <button class="key key-dia" data-hint="Key 8" onclick="addChar('ṇ')">ṇ</button>
+            <button class="key key-dia" data-hint="Key 9" onclick="addChar('ṅ')">ṅ</button>
+            <button class="key key-dia" data-hint="Key 0" onclick="addChar('ṛ')">ṛ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('Ḍ')">Ḍ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('Ṭ')">Ṭ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('Ṇ')">Ṇ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('Ṅ')">Ṅ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('Ṛ')">Ṛ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ā')">ā</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ē')">ē</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('i̱')">i̱</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ĩ')">ĩ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('õ')">õ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('u̱')">u̱</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ũ')">ũ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ṃ')">ṃ</button>
+            <button class="key key-dia" data-hint="Click" onclick="addChar('ḷ')">ḷ</button>
         </div>
 
+        <!-- Ol Chiki Special Panel (hidden by default) -->
         <div id="olchiki-special" class="panel" style="display:none;">
             <div class="panel-title">Ol Chiki Special Matras &amp; Signs:</div>
-            <button class="key key-dia" onclick="addChar('ᱸ')">ᱸ</button>
-            <button class="key key-dia" onclick="addChar('ᱹ')">ᱹ</button>
-            <button class="key key-dia" onclick="addChar('ᱺ')">ᱺ</button>
-            <button class="key key-dia" onclick="addChar('ᱻ')">ᱻ</button>
-            <button class="key key-dia" onclick="addChar('ᱼ')">ᱼ</button>
-            <button class="key key-dia" onclick="addChar('ᱽ')">ᱽ</button>
-            <button class="key key-dia" onclick="addChar('᱾')">᱾</button>
-            <button class="key key-dia" onclick="addChar('᱿')">᱿</button>
+            <button class="key key-dia" data-hint="Mu Tthak" onclick="addChar('ᱸ')">ᱸ</button>
+            <button class="key key-dia" data-hint="Mu Gahla Tthak" onclick="addChar('ᱹ')">ᱹ</button>
+            <button class="key key-dia" data-hint="Relaa" onclick="addChar('ᱺ')">ᱺ</button>
+            <button class="key key-dia" data-hint="Pharkaa" onclick="addChar('ᱻ')">ᱻ</button>
+            <button class="key key-dia" data-hint="Khaddha" onclick="addChar('ᱼ')">ᱼ</button>
+            <button class="key key-dia" data-hint="Gahla Tthak" onclick="addChar('ᱽ')">ᱽ</button>
+            <button class="key key-dia" data-hint="Danda" onclick="addChar('᱾')">᱾</button>
+            <button class="key key-dia" data-hint="Double Danda" onclick="addChar('᱿')">᱿</button>
         </div>
 
         <div class="panel">
             <div class="panel-title">Hardware Mapping Guide:</div>
             <div class="mapping-grid" id="mapping-info"></div>
         </div>
+
     </div>
 
     <script>
         let deferredPrompt;
         const pwaBtn = document.getElementById('pwa-install-btn');
 
+        // PWA Install Prompt
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            pwaBtn.style.display = 'inline-block';
+            if (pwaBtn) pwaBtn.style.display = 'inline-block';
         });
 
         function installPWA() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') pwaBtn.style.display = 'none';
+                    if (choiceResult.outcome === 'accepted' && pwaBtn) {
+                        pwaBtn.style.display = 'none';
+                    }
                     deferredPrompt = null;
                 });
             } else {
-                alert('Android: Chrome me "Install App" dabayein.\niOS: Safari me Share (⬆️) → "Add to Home Screen" chunein.');
+                alert('Install Help:\n• Android: Chrome 3-dots → "Install app"\n• Windows/Mac: Browser URL bar me Install (💻+) icon click karein\n• iOS: Safari Share (⬆️) → "Add to Home Screen"');
             }
         }
 
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS && pwaBtn) {
             pwaBtn.style.display = 'inline-block';
             pwaBtn.textContent = '📲 Add to Home Screen';
         }
 
+        // Service Worker Registration for PWA
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js', { scope: './' })
+                    .then(reg => console.log('SW Registered:', reg.scope))
+                    .catch(err => console.log('SW Registration skipped:', err));
+            });
         }
 
         const editor = document.getElementById('editor');
@@ -471,15 +633,109 @@
 
         let currentLayout = 'roman';
 
+        // Hardware maps
         const hardwareDevanagariMap = {
-            'k':'क','K':'ख','g':'ग','G':'घ','c':'च','C':'छ','j':'ज','J':'झ','t':'त','T':'ट','d':'द','D':'ड','n':'न','N':'ण','p':'प','P':'फ','b':'ब','B':'भ','m':'म','y':'य','r':'र','l':'ल','v':'व','w':'व','s':'स','S':'श','h':'ह','a':'ा','A':'आ','i':'ि','I':'ी','u':'ु','U':'ू','e':'े','E':'ै','o':'ो','O':'ौ','q':'्','x':'ं','R':'ड़','H':'ढ़','Z':'ञ','W':'ङ',']':'़','}':'़'
+            'k': 'क',
+            'K': 'ख',
+            'g': 'ग',
+            'G': 'घ',
+            'c': 'च',
+            'C': 'छ',
+            'j': 'ज',
+            'J': 'झ',
+            't': 'त',
+            'T': 'ट',
+            'd': 'द',
+            'D': 'ड',
+            'n': 'न',
+            'N': 'ण',
+            'p': 'प',
+            'P': 'फ',
+            'b': 'ब',
+            'B': 'भ',
+            'm': 'म',
+            'y': 'य',
+            'r': 'र',
+            'l': 'ल',
+            'v': 'व',
+            'w': 'व',
+            's': 'स',
+            'S': 'श',
+            'h': 'ह',
+            'a': 'ा',
+            'A': 'आ',
+            'i': 'ि',
+            'I': 'ी',
+            'u': 'ु',
+            'U': 'ू',
+            'e': 'े',
+            'E': 'ै',
+            'o': 'ो',
+            'O': 'ौ',
+            'q': '्',
+            'x': 'ं',
+            'R': 'ड़',
+            'H': 'ढ़',
+            'Z': 'ञ',
+            'W': 'ङ',
+            ']': '़',
+            '}': '़'
         };
 
+        // Ol Chiki hardware mapping
         const hardwareOlchikiMap = {
-            'q':'ᱚ','w':'ᱛ','e':'ᱜ','r':'ᱝ','t':'ᱞ','y':'ᱟᱹ','u':'ᱠ','i':'ᱡ','o':'ᱢ','p':'ᱣ','a':'ᱤ','s':'ᱥ','d':'ᱦ','f':'ᱧ','g':'ᱨ','h':'ᱩ','j':'ᱪ','k':'ᱫ','l':'ᱬ','z':'ᱮ','x':'ᱯ','c':'ᱰ','v':'ᱱ','b':'ᱲ','n':'ᱳ','m':'ᱴ','1':'᱑','2':'᱒','3':'᱓','4':'᱔','5':'᱕','6':'᱖','7':'᱗','8':'᱘','9':'᱙','0':'᱐'
+            'q': 'ᱚ',
+            'w': 'ᱛ',
+            'e': 'ᱜ',
+            'r': 'ᱝ',
+            't': 'ᱞ',
+            'y': 'ᱟᱹ',
+            'u': 'ᱠ',
+            'i': 'ᱡ',
+            'o': 'ᱢ',
+            'p': 'ᱣ',
+            'a': 'ᱤ',
+            's': 'ᱥ',
+            'd': 'ᱦ',
+            'f': 'ᱧ',
+            'g': 'ᱨ',
+            'h': 'ᱩ',
+            'j': 'ᱪ',
+            'k': 'ᱫ',
+            'l': 'ᱬ',
+            'z': 'ᱮ',
+            'x': 'ᱯ',
+            'c': 'ᱰ',
+            'v': 'ᱱ',
+            'b': 'ᱲ',
+            'n': 'ᱳ',
+            'm': 'ᱴ',
+            '1': '᱑',
+            '2': '᱒',
+            '3': '᱓',
+            '4': '᱔',
+            '5': '᱕',
+            '6': '᱖',
+            '7': '᱗',
+            '8': '᱘',
+            '9': '᱙',
+            '0': '᱐'
         };
 
-        const hardwareRomanShortcuts = { '1':'a̱', '2':'e̱', '3':'o̱', '4':'ã', '5':'ẽ', '6':'ḍ', '7':'ṭ', '8':'ṇ', '9':'ṅ', '0':'ṛ', 'N':'Ñ' };
+        const hardwareRomanShortcuts = {
+            '1': 'a̱',
+            '2': 'e̱',
+            '3': 'o̱',
+            '4': 'ã',
+            '5': 'ẽ',
+            '6': 'ḍ',
+            '7': 'ṭ',
+            '8': 'ṇ',
+            '9': 'ṅ',
+            '0': 'ṛ',
+            'N': 'Ñ'
+        };
+
         const fKeysRow = ['ESC', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 
         const romanKeys = [
@@ -513,6 +769,7 @@
             ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'LEFT']
         ];
 
+        // Ol Chiki keyboard layout
         const olchikiKeys = [
             fKeysRow,
             ['~', '᱑', '᱒', '᱓', '᱔', '᱕', '᱖', '᱗', '᱘', '᱙', '᱐', '-', '=', 'BACKSPACE'],
@@ -522,27 +779,145 @@
             ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'ALT', 'LEFT', 'DOWN', 'RIGHT']
         ];
 
+        // Reverse map for Ol Chiki
         const olchikiReverseMap = {};
-        for (const [hw, ol] of Object.entries(hardwareOlchikiMap)) olchikiReverseMap[ol] = hw;
+        for (const [hw, ol] of Object.entries(hardwareOlchikiMap)) {
+            olchikiReverseMap[ol] = hw;
+        }
 
         function getHardwareHint(keyChar) {
             if (keyChar.startsWith('F') || keyChar === 'ESC') return 'Function Key';
-            if (['TAB','CAPS','SHIFT','CTRL','ALT','BACKSPACE','ENTER','LANG_SWITCH','SPACE','UP','DOWN','LEFT','RIGHT'].includes(keyChar)) return keyChar;
-            if (currentLayout === 'roman') return keyChar === 'ñ' ? 'Alt + N' : `Key: ${keyChar}`;
-            if (currentLayout === 'olchiki') return olchikiReverseMap[keyChar] ? `Key: ${olchikiReverseMap[keyChar]}` : 'Tap/Click';
-            return 'Key / Click';
+            if (keyChar === 'TAB') return 'Tab Key';
+            if (keyChar === 'CAPS') return 'Caps Lock';
+            if (keyChar === 'SHIFT') return 'Shift Key';
+            if (keyChar === 'CTRL') return 'Ctrl Key';
+            if (keyChar === 'ALT') return 'Alt Key';
+            if (keyChar === 'BACKSPACE') return 'Backspace';
+            if (keyChar === 'ENTER') return 'Enter Key';
+            if (keyChar === 'LANG_SWITCH') return 'Switch Mode';
+            if (keyChar === 'SPACE') return 'Spacebar';
+            if (keyChar === 'UP') return 'Up Arrow';
+            if (keyChar === 'DOWN') return 'Down Arrow';
+            if (keyChar === 'LEFT') return 'Left Arrow';
+            if (keyChar === 'RIGHT') return 'Right Arrow';
+
+            if (currentLayout === 'roman') {
+                if (keyChar === 'ñ') return 'Alt + N';
+                return `Key: ${keyChar}`;
+            } else if (currentLayout === 'olchiki') {
+                if (olchikiReverseMap[keyChar]) {
+                    return `Key: ${olchikiReverseMap[keyChar]}`;
+                }
+                return 'Tap/Click';
+            } else {
+                const devMapHints = {
+                    'क': 'k',
+                    'ख': 'Shift + K',
+                    'ग': 'g',
+                    'घ': 'Shift + G',
+                    'ङ': 'Shift + W',
+                    'च': 'c',
+                    'छ': 'Shift + C',
+                    'ज': 'j',
+                    'झ': 'Shift + J',
+                    'ञ': 'Shift + Z',
+                    'ट': 'Shift + T',
+                    'ठ': 'Click',
+                    'ड': 'Shift + D',
+                    'ढ': 'Click',
+                    'ण': 'Shift + N',
+                    'त': 't',
+                    'थ': 'Click',
+                    'द': 'd',
+                    'ध': 'Click',
+                    'न': 'n',
+                    'प': 'p',
+                    'फ': 'Shift + P',
+                    'ब': 'b',
+                    'भ': 'Shift + B',
+                    'म': 'm',
+                    'य': 'y',
+                    'र': 'r',
+                    'ल': 'l',
+                    'व': 'v / w',
+                    'श': 'Shift + S',
+                    'ष': 'Click',
+                    'स': 's',
+                    'ह': 'h',
+                    'अ': 'Click',
+                    'आ': 'Shift + A',
+                    'इ': 'Click',
+                    'ई': 'Shift + I',
+                    'उ': 'Click',
+                    'ऊ': 'Shift + U',
+                    'ा': 'a',
+                    'ि': 'i',
+                    'ी': 'Shift + I',
+                    'ु': 'u',
+                    'ू': 'Shift + U',
+                    'े': 'e',
+                    'ै': 'Shift + E',
+                    'ो': 'o',
+                    'ौ': 'Shift + O',
+                    '्': 'q',
+                    'ं': 'x',
+                    'ड़': 'Shift + R',
+                    'ढ़': 'Shift + H',
+                    '़': 'Key: ]',
+                    'ᱷ': 'w',
+                    'ᱸ': 'Shift + X',
+                    'ᱽ': 'Click'
+                };
+
+                if (devMapHints[keyChar]) return `Key: ${devMapHints[keyChar]}`;
+                return 'Tap/Click';
+            }
         }
 
         function renderMappingGuide() {
             mappingInfo.innerHTML = '';
-            let guide = currentLayout === 'roman' ? [
-                {k: '1-0 Keys', v: 'a̱, e̱, o̱, ã, ẽ, ḍ, ṭ, ṇ, ṅ, ṛ'},
-                {k: 'Alt+N / Shift+N', v: 'ñ / Ñ'}
-            ] : currentLayout === 'olchiki' ? [
-                {k: 'q,w,e,r,t', v: 'ᱚ,ᱛ,ᱜ,ᱝ,ᱞ'}, {k: 'y,u,i,o,p', v: 'ᱟᱹ,ᱠ,ᱡ,ᱢ,ᱣ'}
-            ] : [
-                {k: 'k / Shift+K', v: 'क / ख'}, {k: 'Key ]', v: '़ (Nukta)'}
-            ];
+            let guide = [];
+
+            if (currentLayout === 'roman') {
+                guide = [
+                    { k: '1-0 Keys',
+                        v: 'a̱, e̱, o̱, ã, ẽ, ḍ, ṭ, ṇ, ṅ, ṛ' },
+                    { k: 'Alt+N / Shift+N',
+                    v: 'ñ / Ñ' },
+                    { k: 'Esc / F1-F12',
+                        v: 'Function Keys' }
+                ];
+            } else if (currentLayout === 'olchiki') {
+                guide = [
+                    { k: 'q,w,e,r,t',
+                        v: 'ᱚ,ᱛ,ᱜ,ᱝ,ᱞ' },
+                    { k: 'y,u,i,o,p',
+                        v: 'ᱟᱹ,ᱠ,ᱡ,ᱢ,ᱣ' },
+                    { k: 'a,s,d,f,g',
+                        v: 'ᱤ,ᱥ,ᱦ,ᱧ,ᱨ' },
+                    { k: 'h,j,k,l',
+                        v: 'ᱩ,ᱪ,ᱫ,ᱬ' },
+                    { k: 'z,x,c,v,b',
+                        v: 'ᱮ,ᱯ,ᱰ,ᱱ,ᱲ' },
+                    { k: 'n,m',
+                        v: 'ᱳ,ᱴ' },
+                    { k: '1-0 Keys',
+                        v: '᱑-᱐ (Ol Chiki Digits)' }
+                ];
+            } else {
+                guide = [
+                    { k: 'k / Shift+K',
+                        v: 'क / ख' },
+                    { k: 'Shift+R / H / Z / W',
+                        v: 'ड़ / ढ़ / ञ / ङ' },
+                    { k: 'Key ]',
+                        v: '़ (Nukta)' },
+                    { k: 'a, i, u, e, o',
+                        v: 'ा, ि, ु, े, ो (Matras)' },
+                    { k: 'q / x',
+                        v: '् / ं' }
+                ];
+            }
 
             guide.forEach(item => {
                 const div = document.createElement('div');
@@ -555,7 +930,9 @@
         function addChar(ch) {
             const start = editor.selectionStart;
             const end = editor.selectionEnd;
-            editor.value = editor.value.substring(0, start) + ch + editor.value.substring(end);
+            const text = editor.value;
+
+            editor.value = text.substring(0, start) + ch + text.substring(end);
             editor.setSelectionRange(start + ch.length, start + ch.length);
             editor.focus();
             updateCounter();
@@ -564,9 +941,14 @@
         function doBackspace() {
             const start = editor.selectionStart;
             const end = editor.selectionEnd;
+            const text = editor.value;
+
             if (start === end && start > 0) {
-                editor.value = editor.value.substring(0, start - 1) + editor.value.substring(end);
+                editor.value = text.substring(0, start - 1) + text.substring(end);
                 editor.setSelectionRange(start - 1, start - 1);
+            } else if (start !== end) {
+                editor.value = text.substring(0, start) + text.substring(end);
+                editor.setSelectionRange(start, start);
             }
             editor.focus();
             updateCounter();
@@ -574,7 +956,9 @@
 
         function updateCounter() {
             const text = editor.value;
-            charCounter.textContent = `Chars: ${text.length} | Words: ${text.trim() ? text.trim().split(/\s+/).length : 0}`;
+            const chars = text.length;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            charCounter.textContent = `Chars: ${chars} | Words: ${words}`;
         }
 
         function copyText() {
@@ -584,30 +968,40 @@
         }
 
         function clearText() {
-            if (confirm('Clear text?')) { editor.value = ''; updateCounter(); editor.focus(); }
+            if (confirm('Clear text?')) {
+                editor.value = '';
+                updateCounter();
+                editor.focus();
+            }
         }
 
         function switchLanguage(targetMode) {
             currentLayout = targetMode;
+
             document.querySelectorAll('.tab-pill').forEach(btn => btn.classList.remove('active'));
 
             if (targetMode === 'roman') {
                 document.getElementById('tab-roman').classList.add('active');
                 deckModeTitle.textContent = 'Virtual Keyboard: Roman Santali';
-                romanQuick.style.display = 'flex'; olchikiSpecial.style.display = 'none';
+                romanQuick.style.display = 'flex';
+                olchikiSpecial.style.display = 'none';
             } else if (targetMode === 'santali-dev') {
                 document.getElementById('tab-santali-dev').classList.add('active');
                 deckModeTitle.textContent = 'Virtual Keyboard: Santali Devanagari';
-                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'none';
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'none';
             } else if (targetMode === 'hindi-dev') {
                 document.getElementById('tab-hindi-dev').classList.add('active');
                 deckModeTitle.textContent = 'Virtual Keyboard: Hindi Devanagari';
-                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'none';
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'none';
             } else if (targetMode === 'olchiki') {
                 document.getElementById('tab-olchiki').classList.add('active');
                 deckModeTitle.textContent = 'Virtual Keyboard: Ol Chiki';
-                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'flex';
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'flex';
             }
+
             drawKeyboard();
         }
 
@@ -620,31 +1014,149 @@
 
         function drawKeyboard() {
             keyboard.innerHTML = '';
-            let rows = currentLayout === 'roman' ? romanKeys : currentLayout === 'santali-dev' ? santaliDevKeys : currentLayout === 'hindi-dev' ? hindiDevKeys : olchikiKeys;
+            let rows = romanKeys;
+
+            if (currentLayout === 'roman') {
+                rows = romanKeys;
+                romanQuick.style.display = 'flex';
+                olchikiSpecial.style.display = 'none';
+            } else if (currentLayout === 'santali-dev') {
+                rows = santaliDevKeys;
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'none';
+            } else if (currentLayout === 'hindi-dev') {
+                rows = hindiDevKeys;
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'none';
+            } else if (currentLayout === 'olchiki') {
+                rows = olchikiKeys;
+                romanQuick.style.display = 'none';
+                olchikiSpecial.style.display = 'flex';
+            }
 
             rows.forEach((row, rowIndex) => {
                 const rowDiv = document.createElement('div');
                 rowDiv.className = 'key-row';
+
                 row.forEach(k => {
                     const btn = document.createElement('button');
                     btn.className = 'key';
                     btn.id = `btn-key-${k.toLowerCase()}`;
                     btn.setAttribute('data-hint', getHardwareHint(k));
-                    if (rowIndex === 0) btn.classList.add('key-fkey');
 
-                    if (k === 'BACKSPACE') { btn.textContent = '⌫ Del'; btn.classList.add('key-func', 'key-side'); btn.onclick = doBackspace; }
-                    else if (k === 'SPACE') { btn.textContent = 'Space Bar'; btn.classList.add('key-space', 'key-func'); btn.onclick = () => addChar(' '); }
-                    else if (k === 'LANG_SWITCH') { btn.textContent = '🌐 Switch'; btn.classList.add('key-func', 'key-side'); btn.onclick = cycleNextLanguage; }
-                    else if (['TAB','CAPS','SHIFT','CTRL','ALT','UP','DOWN','LEFT','RIGHT'].includes(k)) {
-                        btn.textContent = k; btn.classList.add('key-func'); btn.onclick = () => {};
-                    } else {
-                        btn.textContent = k; btn.onclick = () => addChar(k);
+                    if (rowIndex === 0) {
+                        btn.classList.add('key-fkey');
                     }
+
+                    if (k === 'BACKSPACE') {
+                        btn.textContent = '⌫ Del';
+                        btn.classList.add('key-func', 'key-side');
+                        btn.onclick = doBackspace;
+                    } else if (k === 'SPACE') {
+                        btn.textContent = 'Space Bar';
+                        btn.classList.add('key-space', 'key-func');
+                        btn.onclick = () => addChar(' ');
+                    } else if (k === 'SHIFT') {
+                        btn.textContent = '⇧ Shift';
+                        btn.classList.add('key-func', 'key-side');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'ENTER') {
+                        btn.textContent = '↵ Enter';
+                        btn.classList.add('key-func', 'key-side');
+                        btn.onclick = () => addChar('\n');
+                    } else if (k === 'LANG_SWITCH') {
+                        btn.textContent = '🌐 Switch';
+                        btn.classList.add('key-func', 'key-side');
+                        btn.onclick = cycleNextLanguage;
+                    } else if (k === 'TAB') {
+                        btn.textContent = 'Tab';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('\t');
+                    } else if (k === 'CAPS') {
+                        btn.textContent = 'Caps';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'CTRL') {
+                        btn.textContent = 'Ctrl';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'ALT') {
+                        btn.textContent = 'Alt';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'UP') {
+                        btn.textContent = '↑';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'DOWN') {
+                        btn.textContent = '↓';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'LEFT') {
+                        btn.textContent = '←';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else if (k === 'RIGHT') {
+                        btn.textContent = '→';
+                        btn.classList.add('key-func');
+                        btn.onclick = () => addChar('');
+                    } else {
+                        btn.textContent = k;
+                        btn.onclick = () => addChar(k);
+                    }
+
                     rowDiv.appendChild(btn);
                 });
+
                 keyboard.appendChild(rowDiv);
             });
+
             renderMappingGuide();
+        }
+
+        // Map hardware key to Ol Chiki character for highlight
+        function getVisualKeyForHighlight(keyChar) {
+            if (currentLayout === 'olchiki' && hardwareOlchikiMap[keyChar]) {
+                return hardwareOlchikiMap[keyChar];
+            }
+            return keyChar;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.key.toLowerCase() === 'a' || e.key.toLowerCase() === 'c' || e.key.toLowerCase() === 'v')) {
+                return;
+            }
+
+            if (document.activeElement === editor) {
+                if (currentLayout === 'roman') {
+                    if (e.altKey && e.key.toLowerCase() === 'n') {
+                        e.preventDefault();
+                        addChar('ñ');
+                        highlightVisualKey('n');
+                    } else if (hardwareRomanShortcuts[e.key]) {
+                        e.preventDefault();
+                        addChar(hardwareRomanShortcuts[e.key]);
+                        highlightVisualKey(e.key);
+                    }
+                } else if ((currentLayout === 'santali-dev' || currentLayout === 'hindi-dev') && hardwareDevanagariMap[e.key]) {
+                    e.preventDefault();
+                    addChar(hardwareDevanagariMap[e.key]);
+                    highlightVisualKey(e.key);
+                } else if (currentLayout === 'olchiki' && hardwareOlchikiMap[e.key]) {
+                    e.preventDefault();
+                    addChar(hardwareOlchikiMap[e.key]);
+                    highlightVisualKey(e.key);
+                }
+            }
+        });
+
+        function highlightVisualKey(keyChar) {
+            const visualKey = getVisualKeyForHighlight(keyChar);
+            const btn = document.getElementById(`btn-key-${visualKey.toLowerCase()}`);
+            if (btn) {
+                btn.classList.add('key-active');
+                setTimeout(() => btn.classList.remove('key-active'), 150);
+            }
         }
 
         drawKeyboard();
