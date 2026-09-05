@@ -1,8 +1,9 @@
-const CACHE_NAME = 'hor-katha-v1';
+const CACHE_NAME = 'hor-katha-v100';
 const ASSETS = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  'https://cdn-icons-png.flaticon.com/512/2881/2881031.png'
 ];
 
 self.addEventListener('install', (e) => {
@@ -14,11 +15,9 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-      );
-    })
+    caches.keys().then((keys) => Promise.all(
+      keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+    ))
   );
   self.clients.claim();
 });
