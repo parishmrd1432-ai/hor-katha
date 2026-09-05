@@ -1,0 +1,19 @@
+{
+  "name": "Hoṛ Or हो़ड़ Katha",
+  "short_name": "Hoṛ Katha",
+  "description": "Santali Hindi Multi-Script Keyboard - BOSC Tech & Edu",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#0969da",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2881/2881031.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
