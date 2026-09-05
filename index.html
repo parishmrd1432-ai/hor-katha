@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hoṛ Or हो़ड़ Katha - BOSC Tech & Edu</title>
 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0969da">
     <meta name="mobile-web-app-capable" content="yes">
-    
-    <!-- Apple Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Hoṛ Katha">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Hoṛ Or Katha">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2881/2881031.png">
 
     <style>
@@ -22,7 +20,6 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
         body {
             background-color: #f8f9fa;
@@ -35,44 +32,67 @@
             min-height: 100dvh;
             overflow-x: hidden;
         }
+
         .app-card {
             width: 100%;
             max-width: 1280px;
             height: 98vh;
             height: 98dvh;
+            max-height: 960px;
             background: #ffffff;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border-radius: 14px;
             border: 2px solid #0969da;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 35px rgba(9, 105, 218, 0.15), 0 4px 15px rgba(0, 0, 0, 0.06);
             display: flex;
             flex-direction: column;
             gap: 6px;
             justify-content: space-between;
             overflow-y: auto;
         }
+
+        .app-card::-webkit-scrollbar { width: 4px; }
+        .app-card::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 4px; }
+
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #e1e4e8;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
             flex-wrap: wrap;
             gap: 6px;
         }
+
+        .brand-title-group { display: flex; align-items: flex-start; flex-direction: column; }
         .app-main-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #0969da;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .developer-credit {
-            font-size: 0.68rem;
-            color: #57606a;
-            font-weight: 600;
+        .developer-credit { font-size: 0.68rem; color: #57606a; font-weight: 600; }
+
+        .status-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .btn-pwa-install {
+            display: none;
+            background: #2da44e;
+            color: white;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(45, 164, 78, 0.3);
         }
+        .btn-pwa-install:hover { background: #2c974b; transform: translateY(-1px); }
+
         .lang-switcher-group {
             display: flex;
             background: #f6f8fa;
@@ -80,7 +100,9 @@
             padding: 2px;
             border-radius: 50px;
             gap: 2px;
+            flex-wrap: wrap;
         }
+
         .tab-pill {
             background: transparent;
             color: #656d76;
@@ -91,11 +113,20 @@
             font-weight: 700;
             font-size: 0.75rem;
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         .tab-pill.active {
-            background: #0969da;
+            background: linear-gradient(180deg, #0969da 0%, #0353a4 100%);
             color: #ffffff;
+            box-shadow: 0 2px 5px rgba(9, 105, 218, 0.3);
         }
+        .tab-pill:hover:not(.active) { color: #1f2328; background: #eaeedf; }
+
+        .svg-icon { width: 13px; height: 15px; fill: currentColor; display: inline-block; vertical-align: middle; }
+
+        .editor-wrapper { display: flex; flex-direction: column; gap: 3px; }
         textarea {
             width: 100%;
             height: 75px;
@@ -103,250 +134,421 @@
             border: 1px solid #d0d7de;
             border-radius: 6px;
             color: #0969da;
-            padding: 8px;
-            font-size: 1.5rem;
+            padding: 8px 12px;
+            font-size: 1.8rem;
             font-weight: 600;
             outline: none;
+            line-height: 1.3;
             resize: none;
-            user-select: text;
         }
-        textarea:focus {
-            border-color: #0969da;
-            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
-        }
+        textarea:focus { border-color: #0969da; box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2); }
+
         .action-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #f6f8fa;
-            padding: 4px 8px;
+            padding: 3px 8px;
             border-radius: 5px;
             border: 1px solid #d0d7de;
         }
         .counter { font-size: 0.72rem; color: #656d76; font-weight: 600; }
+        .action-btns { display: flex; gap: 5px; }
+
         .btn-action {
-            background: #0969da;
-            color: white;
-            border: none;
-            padding: 4px 10px;
+            background: #ffffff;
+            color: #24292f;
+            border: 1px solid #d0d7de;
+            padding: 3px 8px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.72rem;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
-        .btn-clear { background: #cf222e; }
+        .btn-action:hover { background: #f3f4f6; }
+        .btn-copy { background: #0969da; color: white; border-color: #0969da; }
+        .btn-clear { background: #cf222e; color: white; border-color: #cf222e; }
+
         .keyboard-deck {
-            background: #f6f8fa;
-            padding: 6px;
-            border-radius: 8px;
+            background: linear-gradient(180deg, #f6f8fa 0%, #edf0f2 100%);
+            padding: 8px;
+            border-radius: 10px;
             border: 1px solid #d0d7de;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             gap: 3px;
             overflow-x: auto;
         }
+        .keyboard-deck-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #656d76;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 2px;
+        }
+
         .key-row {
             display: flex;
+            justify-content: space-between;
             gap: 2px;
             width: 100%;
-            min-width: 600px;
+            min-width: 650px;
+            position: relative;
         }
+
         .key {
-            background: #ffffff;
+            background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
             color: #1f2328;
             border: 1px solid #d0d7de;
-            border-bottom: 2px solid #b0b7c0;
-            border-radius: 4px;
+            border-bottom: 3px solid #b0b7c0;
+            border-radius: 5px;
             flex: 1;
-            height: 32px;
+            min-width: 16px;
+            height: 30px;
+            padding: 0;
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
+            user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            touch-action: manipulation;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            transition: transform 0.08s ease, background 0.08s ease;
+            position: relative;
+            z-index: 1;
         }
-        .key:active {
+
+        @media (hover: hover) {
+            .key:hover {
+                background: linear-gradient(180deg, #0969da 0%, #0353a4 100%) !important;
+                border-color: #0969da;
+                color: #ffffff !important;
+                transform: scale(1.3) translateY(-3px);
+                z-index: 50;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+            }
+        }
+
+        .key:active, .key-active {
+            transform: scale(1.08) translateY(1px) !important;
+            border-bottom-width: 1px;
             background: #0969da !important;
-            color: #ffffff !important;
-            transform: translateY(1px);
+            color: white !important;
         }
-        .key-func {
-            background: #eaeedf;
-            font-size: 0.7rem;
-            flex: 1.3;
+
+        .key[data-hint]:hover::after {
+            content: attr(data-hint);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            color: #0969da;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+            z-index: 100;
+            border: 1px solid #0969da;
         }
-        .key-space { flex: 5; }
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
+
+        .key-fkey { background: linear-gradient(180deg, #f6f8fa 0%, #e9ecef 100%); font-size: 0.68rem; color: #656d76; border-color: #d0d7de; height: 24px; }
+        .key-func { background: linear-gradient(180deg, #eaeedf 0%, #d8dee4 100%); border-color: #c0c7d0; border-bottom-color: #9fa6b0; color: #24292f; font-size: 0.7rem; font-weight: 700; }
+        .key-side { flex: 1.3; min-width: 32px; background: linear-gradient(180deg, #f0f7ff 0%, #ddf4ff 100%); border-color: #54a3ff; color: #0969da; }
+        .key-space { flex: 5; font-size: 0.72rem; letter-spacing: 1px; }
+
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
         .panel {
             background: #f6f8fa;
-            padding: 6px;
-            border-radius: 6px;
+            padding: 5px 8px;
+            border-radius: 8px;
             border: 1px solid #d0d7de;
             display: flex;
             flex-wrap: wrap;
             gap: 3px;
         }
-        .panel-title {
-            width: 100%;
-            font-size: 0.65rem;
-            color: #656d76;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
+        .panel-title { width: 100%; font-size: 0.62rem; color: #656d76; font-weight: 700; text-transform: uppercase; margin-bottom: 1px; }
+
         .key-dia {
-            background: #ddf4ff;
+            background: linear-gradient(180deg, #f0f7ff 0%, #ddf4ff 100%);
             border: 1px solid #54a3ff;
+            border-bottom: 2px solid #218bff;
             color: #0969da;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
             font-size: 0.85rem;
+            height: 28px;
         }
+
+        .mapping-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 4px; width: 100%; }
+
+        .map-badge {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            color: #1f2328;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .map-badge:hover { transform: scale(1.08) translateY(-2px); background-color: #f0f7ff; border-color: #0969da; box-shadow: 0 4px 10px rgba(9, 105, 218, 0.2); z-index: 10; }
+        .map-key { color: #0969da; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="app-card">
         <div class="header-bar">
-            <div>
-                <div class="app-main-title">Hoṛ Or हो़ड़ Katha</div>
+            <div class="brand-title-group">
+                <div class="app-main-title">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2H2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-3 0h2v2H5v-2zm0-3h2v2H5V8zm11 10H8v-2h10v2zm1-3h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
+                    <span>Hoṛ Or हो़ड़ Katha</span>
+                </div>
                 <div class="developer-credit">Developed By BOSC Tech & Edu</div>
             </div>
 
+            <div class="status-group">
+                <button id="pwa-install-btn" class="btn-pwa-install" onclick="installPWA()">📲 Install App</button>
+            </div>
+
             <div class="lang-switcher-group">
-                <button id="tab-roman" class="tab-pill active" onclick="switchLanguage('roman')">Roman</button>
+                <button id="tab-roman" class="tab-pill active" onclick="switchLanguage('roman')">Roman Santali</button>
                 <button id="tab-santali-dev" class="tab-pill" onclick="switchLanguage('santali-dev')">Santali Dev</button>
                 <button id="tab-hindi-dev" class="tab-pill" onclick="switchLanguage('hindi-dev')">Hindi Dev</button>
                 <button id="tab-olchiki" class="tab-pill" onclick="switchLanguage('olchiki')">Ol Chiki</button>
             </div>
         </div>
 
-        <div>
-            <textarea id="editor" placeholder="Type here..." oninput="updateCounter()"></textarea>
+        <div class="editor-wrapper">
+            <textarea id="editor" placeholder="Type or tap here..." oninput="updateCounter()"></textarea>
             <div class="action-bar">
                 <div class="counter" id="char-counter">Chars: 0 | Words: 0</div>
-                <div>
-                    <button class="btn-action" onclick="copyText()">Copy</button>
-                    <button class="btn-action btn-clear" onclick="clearText()">Clear</button>
+                <div class="action-btns">
+                    <button class="btn-action btn-copy" onclick="copyText()">📋 Copy</button>
+                    <button class="btn-action btn-clear" onclick="clearText()">🗑️ Clear</button>
                 </div>
             </div>
         </div>
 
         <div class="keyboard-deck">
-            <div id="keyboard" style="display:flex; flex-direction:column; gap:3px;"></div>
+            <div class="keyboard-deck-title">
+                <span id="deck-mode-title">Virtual Keyboard: Roman Santali</span>
+                <span style="color:#0969da;">BOSC Tech & Edu Edition</span>
+            </div>
+            <div id="keyboard" style="display:flex; flex-direction:column; gap:2px;"></div>
         </div>
 
         <div class="bottom-grid">
             <div class="panel">
-                <div class="panel-title">Quick Modifiers</div>
-                <button class="key-dia" onclick="addChar('़')">◌़</button>
-                <button class="key-dia" onclick="addChar('’')">◌’</button>
-                <button class="key-dia" onclick="addChar('\'')">◌'</button>
-                <button class="key-dia" onclick="addChar('ᱽ')">ᱽ</button>
-                <button class="key-dia" onclick="addChar('ᱷ')">ᱷ</button>
-                <button class="key-dia" onclick="addChar('ᱸ')">ᱸ</button>
-                <button class="key-dia" onclick="addChar('\u0301')">◌́</button>
-                <button class="key-dia" onclick="addChar('\u0331')">◌̱</button>
+                <div class="panel-title">Top-Right Touch Modifiers &amp; Devanagari Special:</div>
+                <button class="key key-dia" onclick="addChar('़')">◌़</button>
+                <button class="key key-dia" onclick="addChar('’')">◌’</button>
+                <button class="key key-dia" onclick="addChar('\'')">◌'</button>
+                <button class="key key-dia" onclick="addChar('ᱽ')">ᱽ</button>
+                <button class="key key-dia" onclick="addChar('ᱷ')">ᱷ</button>
+                <button class="key key-dia" onclick="addChar('ᱸ')">ᱸ</button>
+                <button class="key key-dia" onclick="addChar('ⁿ')">◌ⁿ</button>
+                <button class="key key-dia" onclick="addChar('ʰ')">◌ʰ</button>
+                <button class="key key-dia" onclick="addChar('ʲ')">◌ʲ</button>
+                <button class="key key-dia" onclick="addChar('ʷ')">◌ʷ</button>
+                <button class="key key-dia" onclick="addChar('ˤ')">◌ˤ</button>
             </div>
-            <div class="panel" id="extra-panel">
-                <div class="panel-title">Santali Special</div>
-                <button class="key-dia" onclick="addChar('ñ')">ñ</button>
-                <button class="key-dia" onclick="addChar('Ñ')">Ñ</button>
-                <button class="key-dia" onclick="addChar('a̱')">a̱</button>
-                <button class="key-dia" onclick="addChar('e̱')">e̱</button>
-                <button class="key-dia" onclick="addChar('o̱')">o̱</button>
-                <button class="key-dia" onclick="addChar('ḍ')">ḍ</button>
-                <button class="key-dia" onclick="addChar('ṭ')">ṭ</button>
-                <button class="key-dia" onclick="addChar('ṛ')">ṛ</button>
+
+            <div class="panel">
+                <div class="panel-title">Combining Diacritics &amp; Accents:</div>
+                <button class="key key-dia" onclick="addChar('\u0301')">◌́</button>
+                <button class="key key-dia" onclick="addChar('\u0300')">◌̀</button>
+                <button class="key key-dia" onclick="addChar('\u0331')">◌̱</button>
+                <button class="key key-dia" onclick="addChar('\u0323')">◌̣</button>
+                <button class="key key-dia" onclick="addChar('\u0303')">◌̃</button>
+                <button class="key key-dia" onclick="addChar('\u0307')">◌̇</button>
+                <button class="key key-dia" onclick="addChar('\u0304')">◌̄</button>
             </div>
+        </div>
+
+        <div id="roman-quick" class="panel">
+            <div class="panel-title">Santali Special Pre-combined Keys:</div>
+            <button class="key key-dia" onclick="addChar('ñ')">ñ</button>
+            <button class="key key-dia" onclick="addChar('Ñ')">Ñ</button>
+            <button class="key key-dia" onclick="addChar('a̱')">a̱</button>
+            <button class="key key-dia" onclick="addChar('e̱')">e̱</button>
+            <button class="key key-dia" onclick="addChar('o̱')">o̱</button>
+            <button class="key key-dia" onclick="addChar('ã')">ã</button>
+            <button class="key key-dia" onclick="addChar('ẽ')">ẽ</button>
+            <button class="key key-dia" onclick="addChar('ḍ')">ḍ</button>
+            <button class="key key-dia" onclick="addChar('ṭ')">ṭ</button>
+            <button class="key key-dia" onclick="addChar('ṇ')">ṇ</button>
+            <button class="key key-dia" onclick="addChar('ṅ')">ṅ</button>
+            <button class="key key-dia" onclick="addChar('ṛ')">ṛ</button>
+            <button class="key key-dia" onclick="addChar('Ḍ')">Ḍ</button>
+            <button class="key key-dia" onclick="addChar('Ṭ')">Ṭ</button>
+            <button class="key key-dia" onclick="addChar('Ṇ')">Ṇ</button>
+            <button class="key key-dia" onclick="addChar('Ṅ')">Ṅ</button>
+            <button class="key key-dia" onclick="addChar('Ṛ')">Ṛ</button>
+            <button class="key key-dia" onclick="addChar('ā')">ā</button>
+            <button class="key key-dia" onclick="addChar('ē')">ē</button>
+            <button class="key key-dia" onclick="addChar('i̱')">i̱</button>
+            <button class="key key-dia" onclick="addChar('ĩ')">ĩ</button>
+            <button class="key key-dia" onclick="addChar('õ')">õ</button>
+            <button class="key key-dia" onclick="addChar('u̱')">u̱</button>
+            <button class="key key-dia" onclick="addChar('ũ')">ũ</button>
+            <button class="key key-dia" onclick="addChar('ṃ')">ṃ</button>
+            <button class="key key-dia" onclick="addChar('ḷ')">ḷ</button>
+        </div>
+
+        <div id="olchiki-special" class="panel" style="display:none;">
+            <div class="panel-title">Ol Chiki Special Matras &amp; Signs:</div>
+            <button class="key key-dia" onclick="addChar('ᱸ')">ᱸ</button>
+            <button class="key key-dia" onclick="addChar('ᱹ')">ᱹ</button>
+            <button class="key key-dia" onclick="addChar('ᱺ')">ᱺ</button>
+            <button class="key key-dia" onclick="addChar('ᱻ')">ᱻ</button>
+            <button class="key key-dia" onclick="addChar('ᱼ')">ᱼ</button>
+            <button class="key key-dia" onclick="addChar('ᱽ')">ᱽ</button>
+            <button class="key key-dia" onclick="addChar('᱾')">᱾</button>
+            <button class="key key-dia" onclick="addChar('᱿')">᱿</button>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Hardware Mapping Guide:</div>
+            <div class="mapping-grid" id="mapping-info"></div>
         </div>
     </div>
 
     <script>
+        let deferredPrompt;
+        const pwaBtn = document.getElementById('pwa-install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            pwaBtn.style.display = 'inline-block';
+        });
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') pwaBtn.style.display = 'none';
+                    deferredPrompt = null;
+                });
+            } else {
+                alert('Android: Chrome me "Install App" dabayein.\niOS: Safari me Share (⬆️) → "Add to Home Screen" chunein.');
+            }
+        }
+
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            pwaBtn.style.display = 'inline-block';
+            pwaBtn.textContent = '📲 Add to Home Screen';
+        }
+
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(err => console.log(err));
-            });
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         }
 
         const editor = document.getElementById('editor');
         const keyboard = document.getElementById('keyboard');
         const charCounter = document.getElementById('char-counter');
+        const romanQuick = document.getElementById('roman-quick');
+        const olchikiSpecial = document.getElementById('olchiki-special');
+        const mappingInfo = document.getElementById('mapping-info');
+        const deckModeTitle = document.getElementById('deck-mode-title');
+
         let currentLayout = 'roman';
 
-        const layouts = {
-            roman: [
-                ['1','2','3','4','5','6','7','8','9','0','BACKSPACE'],
-                ['q','w','e','r','t','y','u','i','o','p'],
-                ['a','s','d','f','g','h','j','k','l','ENTER'],
-                ['z','x','c','v','b','n','m','ñ'],
-                ['LANG_SWITCH', 'SPACE']
-            ],
-            'santali-dev': [
-                ['०','१','२','३','४','५','६','७','८','९','BACKSPACE'],
-                ['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ऑ'],
-                ['क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ENTER'],
-                ['ट','ठ','ड','ढ','ण','त','थ','द','ध','न'],
-                ['प','फ','ब','भ','म','य','र','ल','व','स','ह'],
-                ['ा','ि','ी','ु','ू','े','ै','ो','ौ','ं','़','्'],
-                ['LANG_SWITCH', 'SPACE']
-            ],
-            'hindi-dev': [
-                ['०','१','२','३','४','५','६','७','८','९','BACKSPACE'],
-                ['अ','आ','इ','ई','उ','ऊ','ऋ','ए','ऐ','ओ','औ'],
-                ['क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ENTER'],
-                ['ट','ठ','ड','ढ','ण','त','थ','द','ध','न'],
-                ['प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह'],
-                ['ा','ि','ी','ु','ू','े','ै','ो','ौ','ं','ः','्'],
-                ['LANG_SWITCH', 'SPACE']
-            ],
-            olchiki: [
-                ['᱑','᱒','᱓','᱔','᱕','᱖','᱗','᱘','᱙','᱐','BACKSPACE'],
-                ['ᱚ','ᱛ','ᱜ','ᱝ','ᱞ','ᱟᱹ','ᱠ','ᱡ','ᱢ','ᱣ'],
-                ['ᱤ','ᱥ','ᱦ','ᱧ','ᱨ','ᱩ','ᱪ','ᱫ','ᱬ','ᱭ','ENTER'],
-                ['ᱮ','ᱯ','ᱰ','ᱱ','ᱲ','ᱳ','ᱴ','ᱵ','ᱶ','ᱷ'],
-                ['LANG_SWITCH', 'SPACE']
-            ]
+        const hardwareDevanagariMap = {
+            'k':'क','K':'ख','g':'ग','G':'घ','c':'च','C':'छ','j':'ज','J':'झ','t':'त','T':'ट','d':'द','D':'ड','n':'न','N':'ण','p':'प','P':'फ','b':'ब','B':'भ','m':'म','y':'य','r':'र','l':'ल','v':'व','w':'व','s':'स','S':'श','h':'ह','a':'ा','A':'आ','i':'ि','I':'ी','u':'ु','U':'ू','e':'े','E':'ै','o':'ो','O':'ौ','q':'्','x':'ं','R':'ड़','H':'ढ़','Z':'ञ','W':'ङ',']':'़','}':'़'
         };
 
-        function drawKeyboard() {
-            keyboard.innerHTML = '';
-            const keys = layouts[currentLayout];
-            keys.forEach(row => {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'key-row';
-                row.forEach(k => {
-                    const btn = document.createElement('button');
-                    btn.className = 'key';
-                    if (k === 'BACKSPACE') {
-                        btn.textContent = '⌫';
-                        btn.classList.add('key-func');
-                        btn.onclick = () => doBackspace();
-                    } else if (k === 'SPACE') {
-                        btn.textContent = 'Space';
-                        btn.classList.add('key-space');
-                        btn.onclick = () => addChar(' ');
-                    } else if (k === 'ENTER') {
-                        btn.textContent = '↵';
-                        btn.classList.add('key-func');
-                        btn.onclick = () => addChar('\n');
-                    } else if (k === 'LANG_SWITCH') {
-                        btn.textContent = '🌐 Switch';
-                        btn.classList.add('key-func');
-                        btn.onclick = cycleLanguage;
-                    } else {
-                        btn.textContent = k;
-                        btn.onclick = () => addChar(k);
-                    }
-                    rowDiv.appendChild(btn);
-                });
-                keyboard.appendChild(rowDiv);
+        const hardwareOlchikiMap = {
+            'q':'ᱚ','w':'ᱛ','e':'ᱜ','r':'ᱝ','t':'ᱞ','y':'ᱟᱹ','u':'ᱠ','i':'ᱡ','o':'ᱢ','p':'ᱣ','a':'ᱤ','s':'ᱥ','d':'ᱦ','f':'ᱧ','g':'ᱨ','h':'ᱩ','j':'ᱪ','k':'ᱫ','l':'ᱬ','z':'ᱮ','x':'ᱯ','c':'ᱰ','v':'ᱱ','b':'ᱲ','n':'ᱳ','m':'ᱴ','1':'᱑','2':'᱒','3':'᱓','4':'᱔','5':'᱕','6':'᱖','7':'᱗','8':'᱘','9':'᱙','0':'᱐'
+        };
+
+        const hardwareRomanShortcuts = { '1':'a̱', '2':'e̱', '3':'o̱', '4':'ã', '5':'ẽ', '6':'ḍ', '7':'ṭ', '8':'ṇ', '9':'ṅ', '0':'ṛ', 'N':'Ñ' };
+        const fKeysRow = ['ESC', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+
+        const romanKeys = [
+            fKeysRow,
+            ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'BACKSPACE'],
+            ['TAB', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
+            ['CAPS', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'ENTER'],
+            ['SHIFT', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'ñ', ',', '.', '/', 'UP'],
+            ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'ALT', 'LEFT', 'DOWN', 'RIGHT']
+        ];
+
+        const santaliDevKeys = [
+            fKeysRow,
+            ['~', '०', '१', '२', '३', '४', '५', '६', '७', '८', '९', '᱾', '॥', 'BACKSPACE'],
+            ['TAB', 'अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ए', 'ऐ', 'ओ', 'औ', 'अं', 'अः', 'ऑ', '\\'],
+            ['CAPS', 'ा', 'ि', 'ी', 'ु', 'ू', 'े', 'ै', 'ो', 'ौ', 'ं', 'ः', '़', '्', 'ENTER'],
+            ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'UP'],
+            ['ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'DOWN'],
+            ['SHIFT', 'म', 'य', 'र', 'ल', 'व', 'स', 'ह', 'ड़', 'ढ़', 'ᱽ', 'ᱷ', 'ᱸ', 'RIGHT'],
+            ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'LEFT']
+        ];
+
+        const hindiDevKeys = [
+            fKeysRow,
+            ['~', '०', '१', '२', '३', '४', '५', '६', '७', '८', '९', '।', '॥', 'BACKSPACE'],
+            ['TAB', 'अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ए', 'ऐ', 'ओ', 'औ', 'अं', 'अः', 'ऑ'],
+            ['CAPS', 'ा', 'ि', 'ी', 'ु', 'ू', 'ृ', 'े', 'ै', 'ो', 'ौ', 'ं', 'ः', 'ँ', '़', '्', 'ENTER'],
+            ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'UP'],
+            ['ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'DOWN'],
+            ['SHIFT', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह', 'क्ष', 'त्र', 'ज्ञ', 'ड़', 'ढ़', 'RIGHT'],
+            ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'LEFT']
+        ];
+
+        const olchikiKeys = [
+            fKeysRow,
+            ['~', '᱑', '᱒', '᱓', '᱔', '᱕', '᱖', '᱗', '᱘', '᱙', '᱐', '-', '=', 'BACKSPACE'],
+            ['TAB', 'ᱚ', 'ᱛ', 'ᱜ', 'ᱝ', 'ᱞ', 'ᱟᱹ', 'ᱠ', 'ᱡ', 'ᱢ', 'ᱣ', '[', ']', '\\'],
+            ['CAPS', 'ᱤ', 'ᱥ', 'ᱦ', 'ᱧ', 'ᱨ', 'ᱩ', 'ᱪ', 'ᱫ', 'ᱬ', 'ᱭ', ';', '\'', 'ENTER'],
+            ['SHIFT', 'ᱮ', 'ᱯ', 'ᱰ', 'ᱱ', 'ᱲ', 'ᱳ', 'ᱴ', 'ᱵ', 'ᱶ', 'ᱷ', ',', '.', '/', 'UP'],
+            ['CTRL', 'LANG_SWITCH', 'ALT', 'SPACE', 'ALT', 'LEFT', 'DOWN', 'RIGHT']
+        ];
+
+        const olchikiReverseMap = {};
+        for (const [hw, ol] of Object.entries(hardwareOlchikiMap)) olchikiReverseMap[ol] = hw;
+
+        function getHardwareHint(keyChar) {
+            if (keyChar.startsWith('F') || keyChar === 'ESC') return 'Function Key';
+            if (['TAB','CAPS','SHIFT','CTRL','ALT','BACKSPACE','ENTER','LANG_SWITCH','SPACE','UP','DOWN','LEFT','RIGHT'].includes(keyChar)) return keyChar;
+            if (currentLayout === 'roman') return keyChar === 'ñ' ? 'Alt + N' : `Key: ${keyChar}`;
+            if (currentLayout === 'olchiki') return olchikiReverseMap[keyChar] ? `Key: ${olchikiReverseMap[keyChar]}` : 'Tap/Click';
+            return 'Key / Click';
+        }
+
+        function renderMappingGuide() {
+            mappingInfo.innerHTML = '';
+            let guide = currentLayout === 'roman' ? [
+                {k: '1-0 Keys', v: 'a̱, e̱, o̱, ã, ẽ, ḍ, ṭ, ṇ, ṅ, ṛ'},
+                {k: 'Alt+N / Shift+N', v: 'ñ / Ñ'}
+            ] : currentLayout === 'olchiki' ? [
+                {k: 'q,w,e,r,t', v: 'ᱚ,ᱛ,ᱜ,ᱝ,ᱞ'}, {k: 'y,u,i,o,p', v: 'ᱟᱹ,ᱠ,ᱡ,ᱢ,ᱣ'}
+            ] : [
+                {k: 'k / Shift+K', v: 'क / ख'}, {k: 'Key ]', v: '़ (Nukta)'}
+            ];
+
+            guide.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'map-badge';
+                div.innerHTML = `<span class="map-key">${item.k}</span> <span>${item.v}</span>`;
+                mappingInfo.appendChild(div);
             });
         }
 
@@ -376,28 +578,73 @@
         }
 
         function copyText() {
+            if (!editor.value) return;
             navigator.clipboard.writeText(editor.value);
-            alert('Copied to clipboard!');
+            alert('Text copied to clipboard!');
         }
 
         function clearText() {
-            if (confirm('Clear all text?')) {
-                editor.value = '';
-                updateCounter();
-            }
+            if (confirm('Clear text?')) { editor.value = ''; updateCounter(); editor.focus(); }
         }
 
-        function switchLanguage(lang) {
-            currentLayout = lang;
-            document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
-            document.getElementById('tab-' + lang).classList.add('active');
+        function switchLanguage(targetMode) {
+            currentLayout = targetMode;
+            document.querySelectorAll('.tab-pill').forEach(btn => btn.classList.remove('active'));
+
+            if (targetMode === 'roman') {
+                document.getElementById('tab-roman').classList.add('active');
+                deckModeTitle.textContent = 'Virtual Keyboard: Roman Santali';
+                romanQuick.style.display = 'flex'; olchikiSpecial.style.display = 'none';
+            } else if (targetMode === 'santali-dev') {
+                document.getElementById('tab-santali-dev').classList.add('active');
+                deckModeTitle.textContent = 'Virtual Keyboard: Santali Devanagari';
+                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'none';
+            } else if (targetMode === 'hindi-dev') {
+                document.getElementById('tab-hindi-dev').classList.add('active');
+                deckModeTitle.textContent = 'Virtual Keyboard: Hindi Devanagari';
+                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'none';
+            } else if (targetMode === 'olchiki') {
+                document.getElementById('tab-olchiki').classList.add('active');
+                deckModeTitle.textContent = 'Virtual Keyboard: Ol Chiki';
+                romanQuick.style.display = 'none'; olchikiSpecial.style.display = 'flex';
+            }
             drawKeyboard();
         }
 
-        function cycleLanguage() {
-            const list = ['roman', 'santali-dev', 'hindi-dev', 'olchiki'];
-            const next = list[(list.indexOf(currentLayout) + 1) % list.length];
-            switchLanguage(next);
+        function cycleNextLanguage() {
+            if (currentLayout === 'roman') switchLanguage('santali-dev');
+            else if (currentLayout === 'santali-dev') switchLanguage('hindi-dev');
+            else if (currentLayout === 'hindi-dev') switchLanguage('olchiki');
+            else switchLanguage('roman');
+        }
+
+        function drawKeyboard() {
+            keyboard.innerHTML = '';
+            let rows = currentLayout === 'roman' ? romanKeys : currentLayout === 'santali-dev' ? santaliDevKeys : currentLayout === 'hindi-dev' ? hindiDevKeys : olchikiKeys;
+
+            rows.forEach((row, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'key-row';
+                row.forEach(k => {
+                    const btn = document.createElement('button');
+                    btn.className = 'key';
+                    btn.id = `btn-key-${k.toLowerCase()}`;
+                    btn.setAttribute('data-hint', getHardwareHint(k));
+                    if (rowIndex === 0) btn.classList.add('key-fkey');
+
+                    if (k === 'BACKSPACE') { btn.textContent = '⌫ Del'; btn.classList.add('key-func', 'key-side'); btn.onclick = doBackspace; }
+                    else if (k === 'SPACE') { btn.textContent = 'Space Bar'; btn.classList.add('key-space', 'key-func'); btn.onclick = () => addChar(' '); }
+                    else if (k === 'LANG_SWITCH') { btn.textContent = '🌐 Switch'; btn.classList.add('key-func', 'key-side'); btn.onclick = cycleNextLanguage; }
+                    else if (['TAB','CAPS','SHIFT','CTRL','ALT','UP','DOWN','LEFT','RIGHT'].includes(k)) {
+                        btn.textContent = k; btn.classList.add('key-func'); btn.onclick = () => {};
+                    } else {
+                        btn.textContent = k; btn.onclick = () => addChar(k);
+                    }
+                    rowDiv.appendChild(btn);
+                });
+                keyboard.appendChild(rowDiv);
+            });
+            renderMappingGuide();
         }
 
         drawKeyboard();
